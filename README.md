@@ -1,10 +1,13 @@
 PHP Code Quality Analyzer
 =========
-check out and fix your PHP code ( PSR-2 coding standar )
+Check out and fix your PHP code ( PSR-2, PSR-1, Zend, PEAR, Squiz and PHPCS Standards )
 
 Installation
 ======================
-clone the project in your project root directory and run : composer install 
+Clone PHP-Code-Quality-Analyzer in your project root directory and run : 
+
+composer install 
+
 
 Requirements
 ======================
