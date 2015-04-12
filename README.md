@@ -6,7 +6,7 @@ Installation
 ======================
 clone the project in your project root directory and run : composer install 
 
-Prérequis
+Requirements
 ======================
 
 * [Composer] [1]
