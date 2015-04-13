@@ -84,6 +84,8 @@
 <button class="btn btn-warning checker" data-type="phpcsfixer">PHP Standards Fixer</button>
 <br /><br />
 <button class="btn btn-warning checker" data-type="phpmetrics">PHP Metrics</button>
+<br /><br />
+<button class="btn btn-warning checker" data-type="phpcpd">PHP Copy/Paste</button>
 </div>
 <div class="col-md-10">
 <div id="rst"></div>
@@ -100,6 +102,7 @@
               <li class="pull-left"><a href="https://github.com/squizlabs/PHP_CodeSniffer">PHPCS</a></li>
               <li class="pull-left"><a href="http://cs.sensiolabs.org/">PHP CS FIXER</a></li>
               <li class="pull-left"><a href="http://www.phpmetrics.org/">PHP METRICS</a></li>
+              <li class="pull-left"><a href="https://github.com/sebastianbergmann/phpcpd">PHP COPY/PASTE DETECTOR</a></li>
             </ul>
              
           </div>
