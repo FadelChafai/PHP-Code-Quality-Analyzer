@@ -37,6 +37,8 @@ class Fixer
     private $metric_report;
 
     private $reportDir = false;
+    
+    private $userFile = null;
 
     const BIN_DIR = 'vendor/bin/';
 
@@ -44,10 +46,12 @@ class Fixer
     {
         $this->projectDir = realpath(dirname(__FILE__) . '/../../../../');
         
-        if (is_file($this->projectDir . '/' . $filename) || is_dir($this->projectDir . '/' . $filename)) {
+        $this->userFile = $this->projectDir . '/' . $filename;
+        
+        if (is_file($this->userFile) || is_dir($this->userFile)) {
             $this->reportDir = getcwd() . '/report';
             
-            $this->setFile($this->projectDir . '/' . $filename);
+            $this->setFile($this->userFile);
             
             $this->standard = $stdr;
             
@@ -86,8 +90,22 @@ class Fixer
                 $phpmdFile = 'phpmd-' . date('YmdGis') . '.html';
                 
                 shell_exec($this->phpmd . ' ' . $this->getFile() . ' html codesize,unusedcode,naming --strict > ' . $this->reportDir . '/' . $phpmdFile);
+           
+                $html =  file_get_contents($this->reportDir . '/' . $phpmdFile);
                 
-                return file_get_contents($this->reportDir . '/' . $phpmdFile);
+                $search = array('<table align="center" cellspacing="0" cellpadding="3">','bgcolor="lightgrey"','<center><h2>Problems found</h2></center>');
+               
+                $replace = array('<table class="table table-striped table-hover ">','','');
+                 
+                
+                $html =  str_replace('', '', $html);
+                
+                $html =  str_replace($search, $replace, $html);
+                
+                
+                
+                return $html;
+                
             } catch (Exception $e) {
                 return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> Error, ' . $e->getTraceAsString() . ' </div>';
             }
@@ -182,7 +200,7 @@ class Fixer
             return [
                 false,
                 '<div class="alert alert-danger" role="alert"><b>Ooops :</b>
-            File not exist </div>'
+            File not exist <br /> File path : '.$this->userFile.' </div>'
             ];
         } else {
             return [
