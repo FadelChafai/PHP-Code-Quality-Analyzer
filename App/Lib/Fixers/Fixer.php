@@ -32,6 +32,8 @@ class Fixer
 
     private $phpcpd;
 
+    private $phploc;
+
     private $projectDir;
 
     private $standard;
@@ -68,6 +70,8 @@ class Fixer
             $this->phpmetrics = $this::BIN_DIR . 'phpmetrics';
 
             $this->phpcpd = $this::BIN_DIR . 'phpcpd';
+
+            $this->phploc = $this::BIN_DIR . 'phploc';
         }
     }
 
@@ -213,6 +217,24 @@ class Fixer
             }
         } else {
             return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> PHPCPD not installed<br>Use : composer install</div>';
+        }
+    }
+
+    /**
+     * phploc /path/of/your/sources
+     *
+     * @return string
+     */
+    public function phploc()
+    {
+        if (is_file($this->phploc)) {
+            try {
+                return shell_exec($this->phploc . ' ' . $this->getFile());
+            } catch (Exception $e) {
+                return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> Error, ' . $e->getTraceAsString() . ' </div>';
+            }
+        } else {
+            return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> PHPLOC not installed<br>Use : composer install</div>';
         }
     }
 

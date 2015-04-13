@@ -54,6 +54,9 @@ if(!empty($_GET['file'])){
             case 'phpcpd':
                 echo '<b>Standard : '.$_GET['stdr'].'</b><br><pre>'.$fixer->phpcpd().'</pre>';
                 break;
+            case 'phploc':
+                echo '<b>Standard : '.$_GET['stdr'].'</b><br><pre>'.$fixer->phploc().'</pre>';
+                break;
         }
 
     }else{
