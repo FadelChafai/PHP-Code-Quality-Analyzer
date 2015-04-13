@@ -17,6 +17,7 @@
 		"squizlabs/php_codesniffer" : "2.3.0",
 		"phpmd/phpmd" : "2.2.2",
 		"halleck45/php-metrics" : "1.1.1",
-		"sebastian/phpcpd": "*"
+		"sebastian/phpcpd": "*",
+		"phploc/phploc": "*"
 	}
 }
