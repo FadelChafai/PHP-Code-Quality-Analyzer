@@ -51,6 +51,9 @@ if(!empty($_GET['file'])){
                 echo '<pre>'.$fixer->phpmetrics().'</pre><br><h4>Metric Report</h4>';
                 echo '<a href="report/'.$fixer->getMetricReportFile().'" target="_blank">Show report</a>';
                 break;
+            case 'phpcpd':
+                echo '<b>Standard : '.$_GET['stdr'].'</b><br><pre>'.$fixer->phpcpd().'</pre>';
+                break;
         }
 
     }else{

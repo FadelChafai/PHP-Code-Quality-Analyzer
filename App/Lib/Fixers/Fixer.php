@@ -30,6 +30,8 @@ class Fixer
 
     private $phpmetrics;
 
+    private $phpcpd;
+
     private $projectDir;
 
     private $standard;
@@ -64,6 +66,8 @@ class Fixer
             $this->phpcbf = $this::BIN_DIR . 'phpcbf';
             
             $this->phpmetrics = $this::BIN_DIR . 'phpmetrics';
+
+            $this->phpcpd = $this::BIN_DIR . 'phpcpd';
         }
     }
 
@@ -191,6 +195,24 @@ class Fixer
             }
         } else {
             return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> PHPCBF not installed<br>Use : composer install</div>';
+        }
+    }
+
+    /**
+     * phpcpd /path/of/your/sources
+     *
+     * @return string
+     */
+    public function phpcpd()
+    {
+        if (is_file($this->phpcpd)) {
+            try {
+                return shell_exec($this->phpcpd . ' ' . $this->getFile());
+            } catch (Exception $e) {
+                return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> Error, ' . $e->getTraceAsString() . ' </div>';
+            }
+        } else {
+            return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> PHPCPD not installed<br>Use : composer install</div>';
         }
     }
 
