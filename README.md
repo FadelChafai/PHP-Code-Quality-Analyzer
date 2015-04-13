@@ -12,9 +12,11 @@ composer install
 Requirements
 ======================
 
-* [Composer] [1]
-* [PHP-CS-Fixer] [2]
-* [PHP-Codesniffer] [3]
-* [PHPMD] [4]
-* [PHPMetrics] [5]
+* [Composer](https://github.com/composer/composer)
+* [PHP-CS-Fixer](http://cs.sensiolabs.org/)
+* [PHP-Codesniffer](https://github.com/squizlabs/PHP_CodeSniffer)
+* [PHPMD](http://phpmd.org/)
+* [PHPMetrics](http://www.phpmetrics.org/)
+* [PHPCPD](https://github.com/sebastianbergmann/phpcpd)
+* [PHPLOC](https://github.com/sebastianbergmann/phploc)
  
