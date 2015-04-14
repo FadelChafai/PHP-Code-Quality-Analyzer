@@ -49,6 +49,8 @@ class Fixer
     private $userFile = null;
 
     const BIN_DIR = 'vendor/bin/';
+    
+    const PHP_UNIT_ERROR = 'Usage: phpunit [options] UnitTest [UnitTest.php]';
 
     public function __construct($filename, $stdr)
     {
@@ -63,7 +65,7 @@ class Fixer
             
             if (!is_writable($this->reportDir) && !is_dir($this->reportDir)) {
                 if (!mkdir($this->reportDir, 0777, true)) {
-                    return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> Error, Failed to create report folders... </div>';
+                    return $this->alertMessage('danger', '<b>Ooops :</b> Error, Failed to create report folders...');
                 }
             }
             
@@ -129,10 +131,10 @@ class Fixer
                 return $html;
                 
             } catch (Exception $e) {
-                return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> Error, ' . $e->getTraceAsString() . ' </div>';
+                return $this->alertMessage('danger', '<b>Ooops :</b> Error, ' . $e->getTraceAsString());
             }
         } else {
-            return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> PHPMD not installed<br>Use : composer install</div>';
+            return $this->alertMessage('danger', '<b>Ooops :</b> PHPMD not installed<br>Use : composer install');
         }
     }
 
@@ -146,13 +148,12 @@ class Fixer
         if (is_file($this->phpcs)) {
             try {
                 $out = shell_exec($this->phpcs . ' ' . $this->getFile() . ' --standard=' . $this->standard);
-                
                 return $out;
             } catch (Exception $e) {
-                return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> Error, ' . $e->getTraceAsString() . ' </div>';
+                return $this->alertMessage('danger', '<b>Ooops :</b> Error, ' . $e->getTraceAsString());
             }
         } else {
-            return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> PHPCS not installed<br>Use : composer install</div>';
+            return $this->alertMessage('danger', '<b>Ooops :</b> PHPCS not installed<br>Use : composer install');
         }
     }
 
@@ -171,10 +172,10 @@ class Fixer
                 
                 return '<h2>Before</h2>' . $this->phpcs() . '<h2>Fixer</h2>' . $csfixer . '<h2>After</h2>' . $csAfter;
             } catch (Exception $e) {
-                return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> Error, ' . $e->getTraceAsString() . ' </div>';
+                return $this->alertMessage('danger', '<b>Ooops :</b> Error, ' . $e->getTraceAsString());
             }
         } else {
-            return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> php-cs-fixer not installed<br>Use : composer install</div>';
+            return $this->alertMessage('danger', '<b>Ooops :</b> php-cs-fixer not installed<br>Use : composer install');
         }
     }
 
@@ -189,10 +190,10 @@ class Fixer
             try {
                 return shell_exec($this->phpcbf . ' ' . $this->getFile() . ' --standard=' . $this->standard);
             } catch (Exception $e) {
-                return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> Error, ' . $e->getTraceAsString() . ' </div>';
+                return $this->alertMessage('danger', '<b>Ooops :</b> Error, ' . $e->getTraceAsString());
             }
         } else {
-            return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> PHPCBF not installed<br>Use : composer install</div>';
+            return $this->alertMessage('danger', '<b>Ooops :</b> PHPCBF not installed<br>Use : composer install');
         }
     }
 
@@ -209,10 +210,10 @@ class Fixer
                 
                 return shell_exec($this->phpmetrics . ' --report-html=' . $this->reportDir . '/' . $this->metric_report . ' ' . $this->getFile());
             } catch (Exception $e) {
-                return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> Error, ' . $e->getTraceAsString() . ' </div>';
+                return $this->alertMessage('danger', '<b>Ooops :</b> Error, ' . $e->getTraceAsString());
             }
         } else {
-            return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> PHPCBF not installed<br>Use : composer install</div>';
+            return $this->alertMessage('danger', '<b>Ooops :</b> PHPMETRICS not installed<br>Use : composer install');
         }
     }
 
@@ -227,10 +228,10 @@ class Fixer
             try {
                 return shell_exec($this->phpcpd . ' ' . $this->getFile());
             } catch (Exception $e) {
-                return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> Error, ' . $e->getTraceAsString() . ' </div>';
+                return $this->alertMessage('danger', '<b>Ooops :</b> Error, ' . $e->getTraceAsString());
             }
         } else {
-            return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> PHPCPD not installed<br>Use : composer install</div>';
+            return $this->alertMessage('danger', '<b>Ooops :</b> PHPCPD not installed<br>Use : composer install');
         }
     }
 
@@ -245,10 +246,10 @@ class Fixer
             try {
                 return shell_exec($this->phploc . ' ' . $this->getFile());
             } catch (Exception $e) {
-                return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> Error, ' . $e->getTraceAsString() . ' </div>';
+                return $this->alertMessage('danger', '<b>Ooops :</b> Error, ' . $e->getTraceAsString());
             }
         } else {
-            return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> PHPLOC not installed<br>Use : composer install</div>';
+            return $this->alertMessage('danger', '<b>Ooops :</b> PHPLOC not installed<br>Use : composer install');
         }
     }
 
@@ -264,13 +265,17 @@ class Fixer
                 $this->coverageFolder = date('YmdGis');
                 $coverageFolderPath = $this->reportDir . '/' . $this->coverageFolder;
                 // Change directory to the choosen one, PHPUNIT must be executed on the working directory
-                chdir($this->getFile());
-                return shell_exec($this->projectDir . '/' . $this->phpunit . ' --coverage-html '. $coverageFolderPath);
+                chdir($this->getFileDirectory());
+                $result = shell_exec($this->projectDir . '/' . $this->phpunit . ' --coverage-html '. $coverageFolderPath);
+            if (strpos($result, $this::PHP_UNIT_ERROR) !== false){
+                    return $this->alertMessage('danger', '<b>Ooops :</b> Directory doesn\'t provide a correct PHP Unit Tests configuration');
+                }
+                return $result;
             } catch (Exception $e) {
-                return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> Error, ' . $e->getTraceAsString() . ' </div>';
+                return $this->alertMessage('danger', '<b>Ooops :</b> Error, ' . $e->getTraceAsString());
             }
         } else {
-            return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> PHPUNIT not installed<br>Use : composer install</div>';
+            return $this->alertMessage('danger', '<b>Ooops :</b> PHPUNIT not installed<br>Use : composer install');
         }
     }
 
@@ -283,13 +288,17 @@ class Fixer
     {
         if (is_file($this->phpunit)) {
             try {
-                chdir($this->getFile());
-                return shell_exec($this->projectDir . '/' . $this->phpunit);
+                chdir($this->getFileDirectory());
+                $result = shell_exec($this->projectDir . '/' . $this->phpunit);
+                if (strpos($result, $this::PHP_UNIT_ERROR) !== false){
+                    return $this->alertMessage('danger', '<b>Ooops :</b> Directory doesn\'t provide a correct PHP Unit Tests configuration');
+                }
+                return $result;
             } catch (Exception $e) {
-                return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> Error, ' . $e->getTraceAsString() . ' </div>';
+                return $this->alertMessage('danger', '<b>Ooops :</b> Error, ' . $e->getTraceAsString());
             }
         } else {
-            return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> PHPUNIT not installed<br>Use : composer install</div>';
+            return $this->alertMessage('danger', '<b>Ooops :</b> PHPUNIT not installed<br>Use : composer install');
         }
     }
 
@@ -298,14 +307,13 @@ class Fixer
         if (! $this->getFile()) {
             return [
                 false,
-                '<div class="alert alert-danger" role="alert"><b>Ooops :</b>
-            File not exist <br /> File path : '.$this->userFile.' </div>'
+                $this->alertMessage('danger', '<b>Ooops :</b>
+            File not exist <br /> File path : '.$this->userFile)
             ];
         } else {
             return [
                 true,
-                '<div class="alert alert-success" role="alert">
-        <b>Good :</b> File checked  </div>'
+                $this->alertMessage('success', '<b>Good :</b> File checked <br/>'.$this->userFile)
             ];
         }
     }
@@ -317,5 +325,16 @@ class Fixer
     
     public function getCoverageFolder(){
         return $this->coverageFolder;
+    }
+    
+    private function getFileDirectory(){
+        if(is_dir($this->getFile())){
+            return $this->getFile();
+        }
+        return dirname($this->getFile());
+    }
+    
+    private function alertMessage($level, $message){
+        return '<div class="alert alert-'. $level .'" role="alert">' . $message . ' </div>';
     }
 }
