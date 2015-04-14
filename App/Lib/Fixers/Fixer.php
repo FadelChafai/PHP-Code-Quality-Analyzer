@@ -55,7 +55,14 @@ class Fixer
         $this->userFile = $this->projectDir . '/' . $filename;
         
         if (is_file($this->userFile) || is_dir($this->userFile)) {
+            
             $this->reportDir = getcwd() . '/report';
+            
+            if (!is_writable($this->reportDir) && !is_dir($this->reportDir)) {
+                if (!mkdir($this->reportDir, 0777, true)) {
+                    return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> Error, Failed to create report folders... </div>';
+                }
+            }
             
             $this->setFile($this->userFile);
             
