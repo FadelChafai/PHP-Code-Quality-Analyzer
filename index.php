@@ -83,9 +83,9 @@
 <br /><br />
 <button class="btn btn-warning checker" data-type="phpcsfixer">PHP Standards Fixer</button>
 <br /><br />
-<button class="btn btn-warning checker" data-type="phpmetrics">PHP Metrics</button>
+<button class="btn btn-danger checker" data-type="phpmetrics">PHP Metrics</button>
 <br /><br />
-<button class="btn btn-warning checker" data-type="phpcpd">PHP Copy/Paste</button>
+<button class="btn btn-info checker" data-type="phpcpd">PHP Copy/Paste</button>
 <br /><br />
 <button class="btn btn-warning checker" data-type="phploc">PHP LOC</button>
 <br /><br />
