@@ -77,19 +77,22 @@
   </div>
 </nav>
 <div class="col-md-2 btnside">
-<button class="btn btn-primary checker" data-type="phpmd">PHP Mess Detector</button>
+<button class="btn btn-default checker" data-type="phpmd">PHP Mess Detector</button>
 <br /><br />
-<button class="btn btn-success checker" data-type="phpcs">PHP Code Sniffer</button>
+<button class="btn btn-default checker" data-type="phpcs">PHP Code Sniffer</button>
 <br /><br />
-<button class="btn btn-warning checker" data-type="phpcsfixer">PHP Standards Fixer</button>
+<button class="btn btn-default checker" data-type="phpcsfixer">PHP Standards Fixer</button>
 <br /><br />
-<button class="btn btn-danger checker" data-type="phpmetrics">PHP Metrics</button>
+<button class="btn btn-default checker" data-type="phpmetrics">PHP Metrics</button>
 <br /><br />
-<button class="btn btn-info checker" data-type="phpcpd">PHP Copy/Paste</button>
+<button class="btn btn-default checker" data-type="phpcpd">PHP Copy/Paste</button>
 <br /><br />
-<button class="btn btn-warning checker" data-type="phploc">PHP LOC</button>
+<button class="btn btn-default checker" data-type="phploc">PHP LOC</button>
 <br /><br />
-<button class="btn btn-warning checker" data-type="phpcodecoverage">PHP Code Coverage</button>
+<button class="btn btn-default checker" data-type="phpcodecoverage">PHP Code Coverage</button>
+<br /><br />
+<button class="btn btn-default checker" data-type="phpunit">PHP Unit Tests</button>
+<br /><br />
 </div>
 <div class="col-md-10">
 <div id="rst"></div>

@@ -4,6 +4,9 @@ $(document).ready(function() {
 	$("#checkfile" ).click(function() { checkFile(); });
 	
 	$(".checker" ).click(function() { 
+		$(".checker.btn-success").removeClass("btn-success").addClass("btn-default");
+		$(this).removeClass("btn-default").addClass("btn-success");
+		
 		if(checkFile()){
 			$("#rst").html('<center><img src="assert/img/loader-1.gif"></center>');
     		$.get( "http.php", { file: $("#filepath").val(), checker : $(this).data('type'), stdr : $('input[name=standards]:checked').val()} )

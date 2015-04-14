@@ -33,6 +33,8 @@ class Fixer
     private $phpcpd;
 
     private $phploc;
+    
+    private $rootDir;
 
     private $projectDir;
 
@@ -50,9 +52,10 @@ class Fixer
 
     public function __construct($filename, $stdr)
     {
-        $this->projectDir = realpath(dirname(__FILE__) . '/../../../../');
+        $this->rootDir = realpath(dirname(__FILE__) . '/../../../../');
+        $this->projectDir = getcwd();
         
-        $this->userFile = $this->projectDir . '/' . $filename;
+        $this->userFile = $this->rootDir . '/' . $filename;
         
         if (is_file($this->userFile) || is_dir($this->userFile)) {
             
@@ -260,10 +263,28 @@ class Fixer
             try {
                 $this->coverageFolder = date('YmdGis');
                 $coverageFolderPath = $this->reportDir . '/' . $this->coverageFolder;
-                $projectDir = getcwd();
                 // Change directory to the choosen one, PHPUNIT must be executed on the working directory
                 chdir($this->getFile());
-                return shell_exec($projectDir . '/' . $this->phpunit . ' --coverage-html '. $coverageFolderPath);
+                return shell_exec($this->projectDir . '/' . $this->phpunit . ' --coverage-html '. $coverageFolderPath);
+            } catch (Exception $e) {
+                return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> Error, ' . $e->getTraceAsString() . ' </div>';
+            }
+        } else {
+            return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> PHPUNIT not installed<br>Use : composer install</div>';
+        }
+    }
+
+    /**
+     * phpunit /path/of/report/folder
+     *
+     * @return string
+     */
+    public function phpunit()
+    {
+        if (is_file($this->phpunit)) {
+            try {
+                chdir($this->getFile());
+                return shell_exec($this->projectDir . '/' . $this->phpunit);
             } catch (Exception $e) {
                 return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> Error, ' . $e->getTraceAsString() . ' </div>';
             }
