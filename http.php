@@ -61,6 +61,9 @@ if(!empty($_GET['file'])){
                 $result = $fixer->phpcodecoverage();
                 echo '<b>Standard : '.$_GET['stdr'].'</b><br><a href="report/'.$fixer->getCoverageFolder().'">View generated report</a><br><pre>'.$result.'</pre>';
                 break;
+            case 'phpunit':
+                echo '<b>Standard : '.$_GET['stdr'].'</b><br><pre>'.$fixer->phpunit().'</pre>';
+                break;
         }
 
     }else{
