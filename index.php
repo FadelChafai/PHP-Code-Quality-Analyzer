@@ -88,6 +88,8 @@
 <button class="btn btn-warning checker" data-type="phpcpd">PHP Copy/Paste</button>
 <br /><br />
 <button class="btn btn-warning checker" data-type="phploc">PHP LOC</button>
+<br /><br />
+<button class="btn btn-warning checker" data-type="phpcodecoverage">PHP Code Coverage</button>
 </div>
 <div class="col-md-10">
 <div id="rst"></div>
@@ -106,6 +108,7 @@
               <li class="pull-left"><a href="http://www.phpmetrics.org/">PHP METRICS</a></li>
               <li class="pull-left"><a href="https://github.com/sebastianbergmann/phpcpd">PHP COPY/PASTE DETECTOR</a></li>
               <li class="pull-left"><a href="https://github.com/sebastianbergmann/phploc">PHPLOC</a></li>
+              <li class="pull-left"><a href="https://phpunit.org">PHPUnit</a></li>
             </ul>
              
           </div>

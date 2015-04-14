@@ -1,3 +1,6 @@
 vendor
 report
 composer.lock
+.project
+.buildpath
+.settings

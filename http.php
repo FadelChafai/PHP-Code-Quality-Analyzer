@@ -57,6 +57,10 @@ if(!empty($_GET['file'])){
             case 'phploc':
                 echo '<b>Standard : '.$_GET['stdr'].'</b><br><pre>'.$fixer->phploc().'</pre>';
                 break;
+            case 'phpcodecoverage':
+                $result = $fixer->phpcodecoverage();
+                echo '<b>Standard : '.$_GET['stdr'].'</b><br><a href="report/'.$fixer->getCoverageFolder().'">View generated report</a><br><pre>'.$result.'</pre>';
+                break;
         }
 
     }else{
