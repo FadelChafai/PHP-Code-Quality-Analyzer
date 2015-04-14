@@ -39,6 +39,8 @@ class Fixer
     private $standard;
 
     private $metric_report;
+    
+    private $coverageFolder;
 
     private $reportDir = false;
     
@@ -72,6 +74,8 @@ class Fixer
             $this->phpcpd = $this::BIN_DIR . 'phpcpd';
 
             $this->phploc = $this::BIN_DIR . 'phploc';
+
+            $this->phpunit = $this::BIN_DIR . 'phpunit';
         }
     }
 
@@ -238,6 +242,29 @@ class Fixer
         }
     }
 
+    /**
+     * phpunit --coverage-html /path/of/report/folder
+     *
+     * @return string
+     */
+    public function phpcodecoverage()
+    {
+        if (is_file($this->phpunit)) {
+            try {
+                $this->coverageFolder = date('YmdGis');
+                $coverageFolderPath = $this->reportDir . '/' . $this->coverageFolder;
+                $projectDir = getcwd();
+                // Change directory to the choosen one, PHPUNIT must be executed on the working directory
+                chdir($this->getFile());
+                return shell_exec($projectDir . '/' . $this->phpunit . ' --coverage-html '. $coverageFolderPath);
+            } catch (Exception $e) {
+                return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> Error, ' . $e->getTraceAsString() . ' </div>';
+            }
+        } else {
+            return '<div class="alert alert-danger" role="alert"><b>Ooops :</b> PHPUNIT not installed<br>Use : composer install</div>';
+        }
+    }
+
     public function chackFile()
     {
         if (! $this->getFile()) {
@@ -258,5 +285,9 @@ class Fixer
     public function getMetricReportFile()
     {
         return $this->metric_report;
+    }
+    
+    public function getCoverageFolder(){
+        return $this->coverageFolder;
     }
 }

@@ -18,6 +18,7 @@
 		"phpmd/phpmd" : "2.2.2",
 		"halleck45/php-metrics" : "1.1.1",
 		"sebastian/phpcpd": "*",
-		"phploc/phploc": "*"
+		"phploc/phploc": "*",
+		"phpunit/phpunit": "*"
 	}
 }
