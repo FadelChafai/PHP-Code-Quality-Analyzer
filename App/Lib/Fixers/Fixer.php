@@ -71,7 +71,7 @@ class Fixer
             
             $this->setFile($this->userFile);
             
-            $this->standard = $stdr;
+            $this->standard = strtolower($stdr);
             
             $this->phpmd = $this::BIN_DIR . 'phpmd';
             
@@ -166,6 +166,7 @@ class Fixer
     {
         if (is_file($this->phpcsfixer)) {
             try {
+            
                 $csfixer = shell_exec($this->phpcsfixer . ' fix ' . $this->getFile() . ' --level=' . $this->standard);
                 $csfixer = $this->phpcbf();
                 $csAfter = $this->phpcs();

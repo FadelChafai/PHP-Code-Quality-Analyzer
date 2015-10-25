@@ -23,7 +23,7 @@ require 'vendor/autoload.php';
 if(!empty($_GET['file'])){
 
     if(empty($_GET['stdr']))
-        $_GET['stdr'] = 'PSR2';
+        $_GET['stdr'] = 'psr2';
     
     $fixer = new Fixer($_GET['file'], $_GET['stdr']);
 

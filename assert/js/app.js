@@ -27,8 +27,6 @@ $(document).ready(function() {
 });
 
 function checkFile(){
-
-	console.log('Bzi9'); // WTF is this shit
 	
 	$("#msg").html('');
 	$("#rst").html('');
